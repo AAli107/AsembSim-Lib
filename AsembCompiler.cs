@@ -198,7 +198,7 @@
                                 return outOfMemoryError;
                             if (byte.TryParse(splitLine[j], out byte n))
                                 binary[(binN * 4) + (j - 1)] = n;
-                            else return (null, "ERROR: Parameter " + j + " on line [" + (i * 4) + "] must be a number.");
+                            else return (null, "ERROR: Parameter " + j + " on line [" + (binN * 4) + "] must be a number.");
                         }
                     }
                     else
@@ -220,16 +220,16 @@
                                 bool mustBeRegHltOut = splitLine[0] == "hlt_out" && !RegToBin(splitLine[j]).HasValue && j == OpcodePCount(splitLine[0]) - 1;
 
                                 if (mustBeRegBelow0x20 || mustBeRegBeyond0x20 || mustBeRegHltOut)
-                                    return (null, "ERROR: Parameter " + j + " on line [" + (i * 4) + "] must be a register.");
+                                    return (null, "ERROR: Parameter " + j + " on line [" + (binN * 4) + "] must be a register.");
                                 int idx = (binN * 4) + j;
                                 if (idx >= CPU.MAX_CODE_SIZE)
                                     return outOfMemoryError;
                                 binary[idx] = RegToBin(splitLine[j]) ?? n;
                             }
-                            else return (null, "ERROR: Parameter " + j + " on line [" + (i * 4) + "] is not valid.");
+                            else return (null, "ERROR: Parameter " + j + " on line [" + (binN * 4) + "] is not valid.");
 
                             if (j == 1 && splitLine[0].ToLower() == "imd" && !byte.TryParse(splitLine[j], out _))
-                                return (null, "ERROR: Parameter " + j + " on line [" + (i * 4) + "] must be a number.");
+                                return (null, "ERROR: Parameter " + j + " on line [" + (binN * 4) + "] must be a number.");
                         }
                     }
                 }
