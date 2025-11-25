@@ -5,6 +5,7 @@ You can get AsembSim here: https://ali107.itch.io/asembsim
 
 ## How to use Library
 The following instructions shows how to use the library on Windows with Visual Studio 2022. The library should work on non-windows platforms, though it is untested.
+There are two ways to use this library, please choose one.
 ### Steps using source code
 - Clone this repository through this command `git clone https://github.com/AAli107/AsembSim-Lib.git` or use any GUI-based source control software like GitHub Desktop.
 - In your solution/project within Visual Studio, right-click on your solution within solution explorer and go to `Add > Existing Project...`.
