@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AsembSimLib
+﻿namespace AsembSimLib
 {
     // Time to compile code so that later you can interpret the compiled code!      🧠 BIG BRAIN ! ! !
     public static class AsembCompiler

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AsembSimLib
+﻿namespace AsembSimLib
 {
     public class CPU
     {
