@@ -176,16 +176,16 @@
                 if (splitLine.Length == 0) continue;
 
                 if (!OpcodeToBin(splitLine[0]).HasValue)
-                    return (null, "ERROR: Invalid opcode \"" + splitLine[0] + "\" on line [" + (i * 4) + "]");
+                    return (null, "ERROR: Invalid opcode \"" + splitLine[0] + "\" on line [" + PointerStrFromBinN(binN) + "]");
 
                 bool isDb = splitLine[0] == "db";
                 int parameters = splitLine.Length > 1 ? splitLine.Length - 1 : 0;
 
                 if ((isDb && splitLine.Length <= 1) || (!isDb && splitLine.Length < OpcodePCount(splitLine[0])))
-                    return (null, "ERROR: Missing parameters for \"" + splitLine[0] + "\" on line [" + (i * 4) + "]");
+                    return (null, "ERROR: Missing parameters for \"" + splitLine[0] + "\" on line [" + PointerStrFromBinN(binN) + "]");
 
                 if (!isDb && splitLine.Length > OpcodePCount(splitLine[0])) 
-                    return (null, "ERROR: Too many parameters for \"" + splitLine[0] + "\" on line [" + (i * 4) + "]");
+                    return (null, "ERROR: Too many parameters for \"" + splitLine[0] + "\" on line [" + PointerStrFromBinN(binN) + "]");
 
                 for (int j = 0; j < (isDb ? splitLine.Length : OpcodePCount(splitLine[0])); j++)
                 {
@@ -198,7 +198,7 @@
                                 return outOfMemoryError;
                             if (byte.TryParse(splitLine[j], out byte n))
                                 binary[(binN * 4) + (j - 1)] = n;
-                            else return (null, "ERROR: Parameter " + j + " on line [" + (binN * 4) + "] must be a number.");
+                            else return (null, "ERROR: Parameter " + j + " on line [" + PointerStrFromBinN(binN) + "] must be a number.");
                         }
                     }
                     else
@@ -220,16 +220,16 @@
                                 bool mustBeRegHltOut = splitLine[0] == "hlt_out" && !RegToBin(splitLine[j]).HasValue && j == OpcodePCount(splitLine[0]) - 1;
 
                                 if (mustBeRegBelow0x20 || mustBeRegBeyond0x20 || mustBeRegHltOut)
-                                    return (null, "ERROR: Parameter " + j + " on line [" + (binN * 4) + "] must be a register.");
+                                    return (null, "ERROR: Parameter " + j + " on line [" + PointerStrFromBinN(binN) + "] must be a register.");
                                 int idx = (binN * 4) + j;
                                 if (idx >= CPU.MAX_CODE_SIZE)
                                     return outOfMemoryError;
                                 binary[idx] = RegToBin(splitLine[j]) ?? n;
                             }
-                            else return (null, "ERROR: Parameter " + j + " on line [" + (binN * 4) + "] is not valid.");
+                            else return (null, "ERROR: Parameter " + j + " on line [" + PointerStrFromBinN(binN) + "] is not valid.");
 
                             if (j == 1 && splitLine[0].ToLower() == "imd" && !byte.TryParse(splitLine[j], out _))
-                                return (null, "ERROR: Parameter " + j + " on line [" + (binN * 4) + "] must be a number.");
+                                return (null, "ERROR: Parameter " + j + " on line [" + PointerStrFromBinN(binN) + "] must be a number.");
                         }
                     }
                 }
@@ -242,6 +242,11 @@
             }
 
             return (binary, default);
+        }
+
+        public static string PointerStrFromBinN(int binN)
+        {
+            return ((binN * 4) % MemoryBlock.MEMORY_SIZE) + "-" + ((binN * 4) / MemoryBlock.MEMORY_SIZE);
         }
 
         public static string[] TokenizeLine(string line)
