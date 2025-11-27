@@ -40,7 +40,7 @@
 
         public MemoryBlock GetMemoryBlock(byte blockIdx)
         {
-            if (blockIdx >= MEMORY_BLOCKS_LEN) return null;
+            if (blockIdx >= MEMORY_BLOCKS_LEN) return new MemoryBlock();
 
             return memoryBlocks[blockIdx];
         }

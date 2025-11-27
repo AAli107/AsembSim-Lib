@@ -41,7 +41,7 @@
         public byte[] GetMemoryBlockData(byte blockIdx)
         {
             MemoryBlock mb = memory.GetMemoryBlock(blockIdx);
-            if (mb == null) return null;
+            if (mb == null) return new byte[MemoryBlock.MEMORY_SIZE];
             return mb.GetDataCopy();
         }
 
