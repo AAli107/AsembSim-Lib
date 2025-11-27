@@ -253,9 +253,7 @@
             }
             catch (Exception)
             {
-                counterReg = 0;
-                registers = new byte[registers.Length];
-                return (false, null);
+                return (true, null);
             }
         }
 
