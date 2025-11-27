@@ -39,6 +39,7 @@
 
         public static (string processedCode, string error) ProcessCode(string code)
         {
+            code = code.Replace("\r", "");
             string[] codeLines = code.Split('\n', StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < codeLines.Length; i++)
             {
@@ -159,6 +160,7 @@
 
         public static (byte[] bin, string error) CompileCode(string code)
         {
+            code = code.Replace("\r", "");
             byte[] binary = new byte[CPU.MAX_CODE_SIZE];
 
             string[] codeLines = code.Split('\n', StringSplitOptions.RemoveEmptyEntries);
@@ -252,6 +254,7 @@
         public static string[] TokenizeLine(string line)
         {
             if (line == null) return Array.Empty<string>();
+            line = line.Replace("\r", "");
 
             List<string> tokens = new();
             bool inSingleQuote = false;
