@@ -132,46 +132,56 @@
                             if (instructionReg[3] == ROUT) result.Item2 = registers[instructionReg[3]];
                             break;
                         case 0x0A:
+                            if (instructionReg[3] < 0 || instructionReg[3] >= registers.Length) break;
+                            registers[instructionReg[3]] = (byte)(p1Reg >> p2Reg);
+                            if (instructionReg[3] == ROUT) result.Item2 = registers[instructionReg[3]];
+                            break;
+                        case 0x0B:
+                            if (instructionReg[3] < 0 || instructionReg[3] >= registers.Length) break;
+                            registers[instructionReg[3]] = (byte)(p1Reg << p2Reg);
+                            if (instructionReg[3] == ROUT) result.Item2 = registers[instructionReg[3]];
+                            break;
+                        case 0x0C:
                             if (instructionReg[2] < 0 || instructionReg[2] >= registers.Length) break;
                             registers[instructionReg[2]] = p1Reg;
                             if (instructionReg[2] == ROUT) result.Item2 = registers[instructionReg[2]];
                             break;
-                        case 0x0B:
+                        case 0x0D:
                             if (instructionReg[2] < 0 || instructionReg[2] >= registers.Length) break;
                             registers[instructionReg[2]] = p1;
                             if (instructionReg[2] == ROUT) result.Item2 = registers[instructionReg[2]];
                             break;
-                        case 0x0C:
+                        case 0x0E:
                             memory.SetAtIndex(p3Reg, p2Reg, p1Reg);
                             break;
-                        case 0x0D:
+                        case 0x0F:
                             if (instructionReg[3] < 0 || instructionReg[3] >= registers.Length) break;
                             registers[instructionReg[3]] = memory.GetAtIndex(p2Reg, p1Reg);
                             if (instructionReg[3] == ROUT) result.Item2 = registers[instructionReg[3]];
                             break;
-                        case 0x0E:
+                        case 0x10:
                             memory.SetAtIndex(14, registers[14], p1Reg);
                             registers[14]++;
                             break;
-                        case 0x0F:
+                        case 0x11:
                             if (instructionReg[1] < 0 || instructionReg[1] >= registers.Length) break;
                             registers[14]--;
                             registers[instructionReg[1]] = memory.GetAtIndex(14, registers[14]);
                             if (instructionReg[1] == ROUT) result.Item2 = registers[instructionReg[1]];
                             break;
-                        case 0x10:
+                        case 0x12:
                             cmpflagsReg = (byte)(
                                     (p1Reg == p2Reg ? CompareFlags.EQUAL : 0) | 
                                     (p1Reg > p2Reg ? CompareFlags.GREATER : 0) |
                                     (p1Reg < p2Reg ? CompareFlags.LESS : 0)
                                 );
                             break;
-                        case 0x11:
+                        case 0x13:
                             if (instructionReg[1] < 0 || instructionReg[1] >= registers.Length) break;
                             registers[instructionReg[1]]++;
                             if (instructionReg[1] == ROUT) result.Item2 = registers[instructionReg[1]];
                             break;
-                        case 0x12:
+                        case 0x14:
                             if (instructionReg[1] < 0 || instructionReg[1] >= registers.Length) break;
                             registers[instructionReg[1]]--;
                             if (instructionReg[1] == ROUT) result.Item2 = registers[instructionReg[1]];
