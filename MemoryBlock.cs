@@ -2,7 +2,7 @@
 {
     public class MemoryBlock
     {
-        public static readonly int MEMORY_SIZE = byte.MaxValue + 1;
+        public const int MEMORY_SIZE = byte.MaxValue + 1;
 
         private readonly byte[] data = new byte[MEMORY_SIZE];
 

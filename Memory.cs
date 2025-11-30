@@ -2,8 +2,8 @@
 {
     public class Memory
     {
-        public static readonly int MEMORY_BLOCKS_LEN = 16; // 4 memory blocks equate to 1 kilobyte
-        public static readonly int TOTAL_BYTE_COUNT = MEMORY_BLOCKS_LEN * MemoryBlock.MEMORY_SIZE;
+        public const int MEMORY_BLOCKS_LEN = 16; // 4 memory blocks equate to 1 kilobyte
+        public const int TOTAL_BYTE_COUNT = MEMORY_BLOCKS_LEN * MemoryBlock.MEMORY_SIZE;
 
         private readonly MemoryBlock[] memoryBlocks = new MemoryBlock[MEMORY_BLOCKS_LEN];
 

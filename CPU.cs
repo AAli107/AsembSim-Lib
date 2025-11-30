@@ -2,9 +2,9 @@
 {
     public class CPU
     {
-        public static readonly int MAX_CODE_SIZE = (Memory.MEMORY_BLOCKS_LEN - 2) * MemoryBlock.MEMORY_SIZE;
-        public static readonly int REGISTER_COUNT = 16;
-        public static readonly byte ROUT = 0x0F;
+        public const int MAX_CODE_SIZE = (Memory.MEMORY_BLOCKS_LEN - 2) * MemoryBlock.MEMORY_SIZE;
+        public const int REGISTER_COUNT = 16;
+        public const byte ROUT = 0x0F;
 
         byte[] registers = new byte[REGISTER_COUNT];
         byte counterReg = 0;
