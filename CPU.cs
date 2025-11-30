@@ -3,9 +3,10 @@
     public class CPU
     {
         public static readonly int MAX_CODE_SIZE = (Memory.MEMORY_BLOCKS_LEN - 2) * MemoryBlock.MEMORY_SIZE;
+        public static readonly int REGISTER_COUNT = 16;
         public static readonly byte ROUT = 0x0F;
 
-        byte[] registers = new byte[16];
+        byte[] registers = new byte[REGISTER_COUNT];
         byte counterReg = 0;
         byte counter2Reg = 0;
         byte cmpflagsReg = 0;
