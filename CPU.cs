@@ -4,6 +4,8 @@
     {
         public const int MAX_CODE_SIZE = (Memory.MEMORY_BLOCKS_LEN - 2) * MemoryBlock.MEMORY_SIZE;
         public const int REGISTER_COUNT = 16;
+        public const int STACK_BLOCK = 14;
+        public const byte STACK_REGISTER = 0x0E;
         public const byte ROUT = 0x0F;
 
         byte[] registers = new byte[REGISTER_COUNT];
@@ -159,13 +161,13 @@
                         if (instructionReg[3] == ROUT) result.Item2 = registers[instructionReg[3]];
                         break;
                     case 0x10:
-                        memory.SetAtIndex(14, registers[14], p1Reg);
-                        registers[14]++;
+                        memory.SetAtIndex(STACK_BLOCK, registers[STACK_REGISTER], p1Reg);
+                        registers[STACK_REGISTER]++;
                         break;
                     case 0x11:
                         if (instructionReg[1] < 0 || instructionReg[1] >= registers.Length) break;
-                        registers[14]--;
-                        registers[instructionReg[1]] = memory.GetAtIndex(14, registers[14]);
+                        registers[STACK_REGISTER]--;
+                        registers[instructionReg[1]] = memory.GetAtIndex(STACK_BLOCK, registers[STACK_REGISTER]);
                         if (instructionReg[1] == ROUT) result.Item2 = registers[instructionReg[1]];
                         break;
                     case 0x12:
@@ -240,16 +242,16 @@
                         registers = new byte[registers.Length];
                         return result;
                     case 0x2A:
-                        memory.SetAtIndex(14, registers[14], counterReg);
-                        memory.SetAtIndex(14, (byte)(registers[14] + 1), counter2Reg);
+                        memory.SetAtIndex(STACK_BLOCK, registers[STACK_REGISTER], counterReg);
+                        memory.SetAtIndex(STACK_BLOCK, (byte)(registers[STACK_REGISTER] + 1), counter2Reg);
                         counterReg = p1;
                         counter2Reg = p2;
-                        registers[14]+=2;
+                        registers[STACK_REGISTER] +=2;
                         break;
                     case 0x2B:
-                        registers[14]-=2;
-                        counterReg = (byte)(memory.GetAtIndex(14, registers[14]) + 4);
-                        counter2Reg = memory.GetAtIndex(14, (byte)(registers[14] + 1));
+                        registers[STACK_REGISTER] -=2;
+                        counterReg = (byte)(memory.GetAtIndex(STACK_BLOCK, registers[STACK_REGISTER]) + 4);
+                        counter2Reg = memory.GetAtIndex(STACK_BLOCK, (byte)(registers[STACK_REGISTER] + 1));
                         break;
                     default:
                         ProgressCounter();
