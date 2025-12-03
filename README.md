@@ -4,7 +4,7 @@ This small library contains the classes used to compile and run AsembSim 8-bit a
 You can get AsembSim here: https://ali107.itch.io/asembsim
 
 ## How to use Library
-The following instructions shows how to use the library on Windows with Visual Studio 2022. The library should work on non-windows platforms, though it is untested.
+The following instructions shows how to use the library on Windows with Visual Studio 2022. The library should work on non-windows platforms, though instructions to how to use on other platforms have not yet been made.
 There are two ways to use this library, please choose one.
 ### Steps using source code
 - Clone this repository through this command `git clone https://github.com/AAli107/AsembSim-Lib.git` or use any GUI-based source control software like GitHub Desktop.
