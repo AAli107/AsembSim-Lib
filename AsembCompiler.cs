@@ -390,6 +390,7 @@
                     'e' => (true, null, '\x1B'),
                     '\\' => (true, null, '\\'),
                     '\'' => (true, null, '\''),
+                    '\"' => (true, null, '\"'),
                     '0' => (true, null, '\0'),
                     _ => (
                         false,
