@@ -18,12 +18,14 @@
 
         public static (bool output, int index) ContainsComment(string line)
         {
+            bool containedBackslash = false;
             bool isInDQ = false;
             bool isInSQ = false;
             for (int i = 0; i < line.Length; i++)
             {
-                if (!isInDQ && line[i] == '\'') isInSQ = !isInSQ;
-                if (!isInSQ && line[i] == '"') isInDQ = !isInDQ;
+                if (!isInDQ && !containedBackslash && line[i] == '\'') isInSQ = !isInSQ;
+                if (!isInSQ && !containedBackslash && line[i] == '"') isInDQ = !isInDQ;
+                if (line[i] == '\\') containedBackslash = true;
                 
                 if (!isInDQ && !isInSQ)
                     foreach (string commentIndc in commentIndicators)
