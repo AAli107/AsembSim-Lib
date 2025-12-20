@@ -18,10 +18,18 @@
 
         public static (bool output, string commentSymbol) ContainsComment(string line)
         {
+            bool isInDQ = false;
+            bool isInSQ = false;
             for (int i = 0; i < line.Length; i++)
-                foreach (string commentIndc in commentIndicators)
-                    if (i + commentIndc.Length <= line.Length && line.AsSpan(i).StartsWith(commentIndc))
-                        return (true, commentIndc);
+            {
+                if (!isInDQ && line[i] == '\'') isInSQ = !isInSQ;
+                if (!isInSQ && line[i] == '"') isInDQ = !isInDQ;
+                
+                if (!isInDQ && !isInSQ)
+                    foreach (string commentIndc in commentIndicators)
+                        if (i + commentIndc.Length <= line.Length && line.AsSpan(i).StartsWith(commentIndc))
+                            return (true, commentIndc);
+            }
 
             return (false, null);
         }
@@ -313,11 +321,12 @@
 
         public static string RemoveComment(string line)
         {
-            var (output, commentSymbol) = ContainsComment(line);
             if (StartsWithComment(line).output) return "";
-            else if (output)
+
+            var (output, commentSymbol) = ContainsComment(line);
+            if (output)
                 return line[..line.IndexOf(commentSymbol)];
-            else return line;
+            return line;
         }
 
         public static (bool isLabel, string error) IsLabel(string line, int? lineNumber = null)
